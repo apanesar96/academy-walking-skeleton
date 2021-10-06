@@ -3,10 +3,10 @@ FROM node:16.9-slim AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN yarn install
 
 COPY . .
-RUN npm run build
+RUN yarn run build
 
 FROM nginxinc/nginx-unprivileged:1.21
 
