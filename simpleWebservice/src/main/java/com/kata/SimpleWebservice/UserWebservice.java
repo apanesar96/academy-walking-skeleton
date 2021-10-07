@@ -17,6 +17,7 @@ public class UserWebservice {
         return (List<User>) userRepository.findAll();
     }
 
+//    @CrossOrigin
     @RequestMapping("/createUser")
     @PostMapping
     public void postUserIntoDatabase(@RequestBody User user) {

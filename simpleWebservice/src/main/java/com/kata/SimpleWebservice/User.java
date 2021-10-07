@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Setter
@@ -19,7 +16,9 @@ import java.time.LocalDate;
 @Table(name = "example_user")
 public class User {
     @JsonIgnore
-    private @Id long id;
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id;
     private String name;
     private int age;
     @Column(name="dateofbirth")

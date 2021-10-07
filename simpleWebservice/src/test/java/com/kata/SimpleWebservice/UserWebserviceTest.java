@@ -32,7 +32,7 @@ public class UserWebserviceTest {
 
         given(userRepository.findAll()).willReturn(asList(user));
 
-        this.mockMvc.perform(get("getUsers"))
+        this.mockMvc.perform(get("/getUsers"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{\"name\":\"John Doe\",\"age\":26,\"dateOfBirth\":\"1970-12-31\"}]"));
     }
@@ -41,7 +41,7 @@ public class UserWebserviceTest {
     void should_post_and_create_a_new_user() throws Exception {
         this.mockMvc.perform(post("/createUser")
                     .content("{\"name\":\"John Doe\",\"age\":26,\"dateOfBirth\":\"1970-12-31\"}")
-                    .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
 
         verify(userRepository, times(1)).save(any(User.class));
