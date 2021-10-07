@@ -60,6 +60,15 @@ public class UserWebserviceTest {
 
         verify(userRepository).findById(1L);
     }
+
+    @Test
+    void  should_throw_404_not_found_exepction_if_user_does_not_exist() throws Exception {
+        given(userRepository.findById(1L)).willReturn(null);
+
+        this.mockMvc.perform(get("/getUserById/?id=1"))
+                .andExpect(status().is4xxClientError());
+    }
+
 }
 
 // Create an endpoint that accepts a unique identifier for a user and returns the user details
