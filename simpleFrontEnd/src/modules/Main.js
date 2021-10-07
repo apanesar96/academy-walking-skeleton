@@ -16,7 +16,6 @@ function Main() {
         const data = new FormData(form.current)
         const payload = {};
         data.forEach((value, key) => payload[key] = value);
-        console.warn(payload);
 
         axios({
             method: "post",

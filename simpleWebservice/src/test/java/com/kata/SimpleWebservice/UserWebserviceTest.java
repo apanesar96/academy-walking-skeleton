@@ -1,6 +1,7 @@
 package com.kata.SimpleWebservice;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -46,4 +47,19 @@ public class UserWebserviceTest {
 
         verify(userRepository, times(1)).save(any(User.class));
     }
+
+    @Test
+    void should_retrieve_a_user_by_id() throws Exception {
+        User user = new User("Bruce Wayne", 58, "1966-12-31");
+
+        given(userRepository.findById(1L)).willReturn(java.util.Optional.of(user));
+
+        this.mockMvc.perform(get("/getUserById/?id=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"name\":\"Bruce Wayne\",\"age\":58,\"dateOfBirth\":\"1966-12-31\"}"));
+
+        verify(userRepository).findById(1L);
+    }
 }
+
+// Create an endpoint that accepts a unique identifier for a user and returns the user details
