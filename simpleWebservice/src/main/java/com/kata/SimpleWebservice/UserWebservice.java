@@ -35,6 +35,9 @@ public class UserWebservice {
     @DeleteMapping("/deleteUserById/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById(@PathVariable long id) throws ResponseStatusException {
+        userRepository.findById(id)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user does not exist"));
+
         userRepository.deleteById(id);
     }
 

@@ -60,7 +60,7 @@ public class UserWebserviceTest {
     }
 
     @Test
-    void should_throw_404_not_found_exepction_if_user_does_not_exist() throws Exception {
+    void should_throw_404_not_found_exception_if_user_does_not_exist() throws Exception {
         given(userRepository.findById(1L)).willReturn(Optional.empty());
 
         this.mockMvc.perform(get("/getUserById/1"))
@@ -69,10 +69,22 @@ public class UserWebserviceTest {
 
     @Test
     void should_delete_user_and_return_204_status() throws Exception {
+        User user = new User("Bruce Wayne", 58, "1966-12-31");
+        given(userRepository.findById(1L)).willReturn(java.util.Optional.of(user));
 
         this.mockMvc.perform(delete("/deleteUserById/1"))
                 .andExpect(status().isNoContent());
 
         verify(userRepository).deleteById(1L);
+    }
+
+    @Test
+    void should_throw_a_not_found_exception_when_deleting_non_existing_user() throws Exception{
+        given(userRepository.findById(1L)).willReturn(Optional.empty());
+
+        this.mockMvc.perform(delete("/deleteUserById/1"))
+                .andExpect(status().isNotFound());
+
+        verify(userRepository).findById(1L);
     }
 }

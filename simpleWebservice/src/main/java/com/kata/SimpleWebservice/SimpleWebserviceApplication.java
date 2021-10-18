@@ -24,6 +24,8 @@ public class SimpleWebserviceApplication {
 						.allowedOrigins("http://localhost:3000", "http://frontend:3000");
 				registry.addMapping("/getUserById/{id}")
 						.allowedOrigins("http://localhost:3000", "http://frontend:3000");
+				registry.addMapping("/deleteUserById/{id}")
+						.allowedOrigins("http://localhost:3000", "http://frontend:3000");
 			}
 		};
 	}
