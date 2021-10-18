@@ -1,5 +1,7 @@
+FROM gradle:7.2.0-jdk8
+RUN gradle clean build
 FROM adoptopenjdk:11-jre-hotspot as builder
-ARG JAR_FILE=build/libs/SimpleWebservice-*.jar
+ARG JAR_FILE=../../build/libs/SimpleWebservice-*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 

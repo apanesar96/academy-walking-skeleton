@@ -8,6 +8,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
 import static java.util.Arrays.asList;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -54,7 +56,7 @@ public class UserWebserviceTest {
 
         given(userRepository.findById(1L)).willReturn(java.util.Optional.of(user));
 
-        this.mockMvc.perform(get("/getUserById/?id=1"))
+        this.mockMvc.perform(get("/getUserById/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"name\":\"Bruce Wayne\",\"age\":58,\"dateOfBirth\":\"1966-12-31\"}"));
 
@@ -63,10 +65,10 @@ public class UserWebserviceTest {
 
     @Test
     void  should_throw_404_not_found_exepction_if_user_does_not_exist() throws Exception {
-        given(userRepository.findById(1L)).willReturn(null);
+        given(userRepository.findById(1L)).willReturn(Optional.empty()); 
 
-        this.mockMvc.perform(get("/getUserById/?id=1"))
-                .andExpect(status().is4xxClientError());
+        this.mockMvc.perform(get("/getUserById/1"))
+                .andExpect(status().isNotFound());
     }
 
 }
