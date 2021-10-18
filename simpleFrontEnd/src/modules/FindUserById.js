@@ -1,6 +1,5 @@
 import React, { useState, form } from "react";
-import axios from 'axios';
-
+import findUserById from "./userService/findUserById";
 
 export default function FindUserById() {
 
@@ -9,14 +8,14 @@ export default function FindUserById() {
   async function handleSubmit(event) {
     event.preventDefault();
     const { id } = event.target;
-    axios.get(`http://localhost:8080/getUserById/${id.value}`)
+
+    findUserById(id)
     .then(({data}) => {
-        console.log(data);
         setUser(data);
     })
     .catch((err) => alert(err));
   }
-
+  
     return (
         <div>
             <form ref={form} onSubmit={handleSubmit}>
