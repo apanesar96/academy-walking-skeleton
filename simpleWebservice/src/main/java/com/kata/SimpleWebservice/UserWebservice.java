@@ -18,7 +18,7 @@ public class UserWebservice {
     public List<User> getUsersFromDatabase() {
         return userRepository.findAll();
     }
-    
+
     @RequestMapping("/createUser")
     @PostMapping
     public void postUserIntoDatabase(@RequestBody User user) {
@@ -32,5 +32,10 @@ public class UserWebservice {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
     }
 
+    @DeleteMapping("/deleteUserById/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUserById(@PathVariable long id) throws ResponseStatusException {
+        userRepository.deleteById(id);
+    }
 
 }
