@@ -9,7 +9,7 @@ export default function FindUserById() {
     event.preventDefault();
     const { id } = event.target;
 
-    findUserById(id)
+    findUserById(id.value)
     .then(({data}) => {
         setUser(data);
     })
