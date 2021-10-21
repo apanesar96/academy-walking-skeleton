@@ -1,8 +1,6 @@
 import axios from 'axios';
 import findUserById from './findUserById';
 
-jest.mock('axios');
-
 describe('findUserById', () => {
     it('calls the endpoint', () => {
 
@@ -12,7 +10,7 @@ describe('findUserById', () => {
     })
 
     it('returns a promise', () => {
-        jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve());
+        jest.spyOn(axios, "get").mockImplementation(() => new Promise(() => null, () => null));
         
         expect(findUserById(1)).toBeInstanceOf(Promise);
     })

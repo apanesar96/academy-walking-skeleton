@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from 'axios';
 import FindUserById from "./FindUserById";
+import DeleteUser from './DeleteUser'
 
 function Main() {
 
@@ -62,6 +63,7 @@ function Main() {
                     </>
                 }
                 <FindUserById />
+                <DeleteUser />
             </header>
         </div>
     )
